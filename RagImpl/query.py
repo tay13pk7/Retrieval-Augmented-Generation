@@ -65,7 +65,7 @@ def search_chunks(query, top_k = TOP_K):
         LIMIT %s
     """, (q_emb_pg, q_emb_pg, top_k))
 
-    # # 2) Vector similarity fallback
+    # # 2) Vector similarity fallback, this was similarity search
     # cur.execute("""
     #     SELECT dc.id, dc.chunk_text, dc.document_id, d.name, (dc.embedding <-> %s::vector) AS distance
     #     FROM doc_chunks dc
