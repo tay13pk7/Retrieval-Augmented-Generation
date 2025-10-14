@@ -1,5 +1,5 @@
-from utils import get_embedding, vector_to_pgvector, get_conn
-from ollama_client import ask_ollama
+from RagImpl.utils import get_embedding, vector_to_pgvector, get_conn
+from RagImpl.ollama_client import ask_ollama
 
 
 

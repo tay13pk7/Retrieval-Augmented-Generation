@@ -1,6 +1,7 @@
 # summarize.py
-from utils import get_conn
-from ollama_client import ask_ollama
+from RagImpl.utils import get_conn
+from RagImpl.ollama_client import ask_ollama
+from RagImpl.db import get_conn
 
 DEBUG = True
 

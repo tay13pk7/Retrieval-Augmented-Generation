@@ -1,16 +1,15 @@
 import re
+from sentence_transformers import SentenceTransformer
 import requests
 from bs4 import BeautifulSoup
-from sentence_transformers import SentenceTransformer
-from db import get_conn
+from RagImpl.db import get_conn
+
 
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 
 def clean_text(text: str) -> str:
     """Clean raw extracted text before chunking."""
-    # Remove multiple spaces, tabs, newlines
     text = re.sub(r"\s+", " ", text)
-    # Strip leading/trailing junk
     text = text.strip()
     return text
 
@@ -20,26 +19,31 @@ def chunk_text(text, chunk_size=500, overlap=100):
     i = 0
     while i < len(words):
         chunk = " ".join(words[i:i + chunk_size])
-        # clean each chunk to avoid garbage like empty strings
         chunk = clean_text(chunk)
-        if chunk:  # only keep non-empty
+        if chunk:
             chunks.append(chunk)
         i += chunk_size - overlap
     return chunks
 
 def ingest_url(url, doc_name):
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/122.0.0.0 Safari/537.36"
+        ),
+        "Accept-Language": "en-US,en;q=0.9",
+    }
+
     try:
-        resp = requests.get(url, timeout=10)
+        resp = requests.get(url, headers=headers, timeout=15)
         resp.raise_for_status()
     except Exception as e:
         print(f"⚠️ Failed to fetch {url}: {e}")
         return
 
     soup = BeautifulSoup(resp.text, "html.parser")
-    # Get all paragraphs text
     full_text = " ".join([p.get_text(separator=" ") for p in soup.find_all("p")])
-
-    # Clean the extracted text
     full_text = clean_text(full_text)
 
     if not full_text:
@@ -51,7 +55,6 @@ def ingest_url(url, doc_name):
     conn = get_conn()
     cur = conn.cursor()
 
-    # 🔍 Check if this URL already exists
     cur.execute("SELECT id FROM documents WHERE source = %s;", (url,))
     existing = cur.fetchone()
     if existing:
@@ -60,14 +63,12 @@ def ingest_url(url, doc_name):
         conn.close()
         return
 
-    # Insert document if not already present
     cur.execute(
         "INSERT INTO documents (name, source) VALUES (%s, %s) RETURNING id;",
         (doc_name, url)
     )
     doc_id = cur.fetchone()[0]
 
-    # Insert chunks with embeddings
     for chunk in chunks:
         emb = embed_model.encode(chunk).tolist()
         cur.execute(
@@ -83,8 +84,9 @@ def ingest_url(url, doc_name):
     conn.close()
     print(f"✅ Ingested {len(chunks)} clean chunks from URL '{url}'.")
 
+
 if __name__ == "__main__":
     ingest_url(
-        "https://www.digitalocean.com/community/tutorials/multithreading-in-java",
-        "Multi-Threading"
+        "https://kids.britannica.com/students/article/Taylor-Swift/487625",
+        "Taylor Swift"
     )

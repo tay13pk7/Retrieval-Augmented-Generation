@@ -2,7 +2,8 @@ import os
 import re
 from pypdf import PdfReader
 from sentence_transformers import SentenceTransformer
-from db import get_conn
+from .db import get_conn
+from RagImpl.db import get_conn
 
 embed_model = SentenceTransformer("all-MiniLM-L6-v2")
 

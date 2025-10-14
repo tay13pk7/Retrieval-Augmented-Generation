@@ -1,11 +1,13 @@
 # main.py
+
 from fastapi import FastAPI, UploadFile, Form
 from fastapi.responses import JSONResponse
-from ingest_pdf import ingest_pdfs
-from ingest_url import ingest_url
-from query import ask
-from summarize import summarize_document
-from db import get_conn
+
+from .ingest_pdf import ingest_pdfs
+from .ingest_url import ingest_url
+from .query import ask
+from .summarize import summarize_document
+from .db import get_conn
 
 import os
 
