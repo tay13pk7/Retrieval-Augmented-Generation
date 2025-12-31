@@ -1,4 +1,5 @@
-<img width="1536" height="1024" alt="ChatGPT Image Dec 31, 2025, 01_41_28 PM" src="https://github.com/user-attachments/assets/2cb579aa-f715-4248-b063-b7affa7505ea" />Chat with Docs — RAG System
+<img width="1398" height="859" alt="RAG Diagram" src="https://github.com/user-attachments/assets/b24328df-a993-4c01-87cc-1eb33a2282b7" />
+
 
 A production-grade Retrieval-Augmented Generation (RAG) platform that enables intelligent interaction with PDFs and web content using semantic search, embeddings, and LLM-powered summarization — all exposed via a robust FastAPI backend.
 
@@ -61,6 +62,6 @@ It combines modern NLP, vector databases, and LLMs into a scalable document-inte
 3.Ask: “Summarize the company’s AI strategy”
 4.Receive concise, context-grounded answers in seconds
 
-<img width="1536" height="1024" alt="ChatGPT Image Dec 31, 2025, 01_41_28 PM" src="https://github.com/user-attachments/assets/14600d16-f622-4867-a942-fa2797f0ddd3" />
+
 
 
