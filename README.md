@@ -22,20 +22,16 @@ It combines modern NLP, vector databases, and LLMs into a scalable document-inte
 
 ---------------------------------------------------------------------------
 
-🧩 Tech Stack
-Layer	                   |   Technology
+## 🧩 Tech Stack
 
-Backend	                     FastAPI
+| Layer         | Technology                                      |
+|--------------|------------------------------------------------|
+| Backend      | FastAPI                                         |
+| Vector Store | PostgreSQL + pgvector                           |
+| Embeddings   | SentenceTransformers (all-MiniLM-L6-v2)         |
+| LLM          | Ollama (Mistral)                                |
+| Parsing      | PyPDF, BeautifulSoup                            |
 
-Vector Store	               PostgreSQL + pgvector
-
-Embeddings	                 SentenceTransformers (all-MiniLM-L6-v2)
-
-LLM	                         Ollama (Mistral)
-
-Parsing	                     PyPDF, BeautifulSoup
-
-Search	                     Cosine similarity with pgvector
 
 -------------------------------------------------------------------------------
 
