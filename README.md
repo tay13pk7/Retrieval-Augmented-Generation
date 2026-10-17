@@ -58,8 +58,11 @@ It combines modern NLP, vector databases, and LLMs into a scalable document-inte
 - Example Use Case
 
 1.Upload annual report PDFs
+
 2.Ingest industry articles from the web
+
 3.Ask: “Summarize the company’s AI strategy”
+
 4.Receive concise, context-grounded answers in seconds
 
 
